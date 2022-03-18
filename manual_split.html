@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>加工单拆分</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<p align="center"><text>加工单拆分</text><p>
+<form class="form-inline" role="form">
+   <div class="form-group">
+  	<label for="name">总售价</label>
+    <!--<label class="sr-only" for="name">总售价</label>-->
+    <input type="text" class="form-control" id="sum_price" placeholder="请输入总售价" width="50px">
+  </div> 
+
+  <button type="button" class="btn btn-success" id="split">拆分</button>
+</form>
+
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>名称</th>
+			<th>单价</th>
+			<th>数量</th>
+			<th>成本</th>
+			<th>拆分后成本</th>
+			<th>拆分后售价</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>铝槽</td>
+			<td><input type="text" class="form-control" id="al_price" placeholder="请输入单价" width="50px"></td>
+			<td><input type="text" class="form-control" id="al_num" placeholder="请输入数量"  width="50px"></td>
+			<td id="al_cost"></td>
+			<td id="al_split_cost"></td>
+			<td id="al_split_price"></td>
+		</tr>
+		<tr>
+			<td>灯带</td>
+			<td><input type="text" class="form-control" id="light_price" placeholder="请输入单价" width="50px"></td>
+			<td><input type="text" class="form-control" id="light_num" placeholder="请输入数量"  width="50px"></td>
+			<td id="light_cost"></td>
+			<td id="light_split_cost"></td>
+			<td id="light_split_price"></td>
+		</tr><tr>
+			<td>电源</td>
+			<td><input type="text" class="form-control" id="power_price" placeholder="请输入单价" width="50px"></td>
+			<td><input type="text" class="form-control" id="power_num" placeholder="请输入数量"  width="50px"></td>
+			<td id="power_cost"></td>
+			<td id="power_split_cost"></td>
+			<td id="power_split_price"></td>
+		</tr>
+		</tr><tr>
+			<td>杜邦线</td>
+			<td><input type="text" class="form-control" id="line_price" placeholder="请输入单价" width="50px"></td>
+			<td><input type="text" class="form-control" id="line_num" placeholder="请输入数量"  width="50px"></td>
+			<td id="line_cost"></td>
+			<td id="line_split_cost"></td>
+			<td id="line_split_price"></td>
+		</tr>
+		</tr><tr>
+			<td>加工费</td>
+			<td><input type="text" class="form-control" id="manual_price" placeholder="请输入单价" width="50px"></td>
+			<td><input type="text" class="form-control" id="manual_num" placeholder="请输入数量"  width="50px"></td>
+			<td id="manual_cost"></td>
+			<td id="manual_split_cost"></td>
+			<td id="manual_split_price"></td>
+		</tr>
+		
+	</tbody>
+</table>
+<script>
+
+$("#split").click(function(){
+	//铝材单价和数量
+	var al_price = $("#al_price").val();
+	var al_num = $("#al_num").val();
+	//灯带单价和数量
+	var light_price = $("#light_price").val();
+	var light_num = $("#light_num").val();
+	//电源单价和数量
+	var power_price = $("#power_price").val();
+	var power_num = $("#power_num").val();
+	//杜邦线单价和数量
+	var line_price = $("#line_price").val();
+	var line_num = $("#line_num").val();
+	//加工费单价和数量
+	var manual_price = $("#manual_price").val();
+	var manual_num = $("#manual_num").val();
+
+	var al_cost = al_price * al_num;
+    $("#al_cost").text(al_cost);
+	var light_cost =light_price * light_num;
+	$("#light_cost").text(light_cost);
+	var power_cost = power_price * power_num;
+	$("#power_cost").text(power_cost);
+	var line_cost = line_price * line_num;
+	$("#line_cost").text(line_cost);
+	var manual_cost= manual_price * manual_num;
+	$("#manual_cost").text(manual_cost);
+
+	var sum_price = parseFloat($("#sum_price").val());
+	var sum_profit = parseFloat(sum_price- al_cost - light_cost - power_cost - line_cost - manual_cost);
+	//拆分后成本
+	$("#al_split_cost").text(al_cost+parseFloat(sum_profit/5));
+	$("#light_split_cost").text(light_cost+parseFloat(sum_profit/5));
+	$("#power_split_cost").text(power_cost+parseFloat(sum_profit/5));
+	$("#line_split_cost").text(line_cost+parseFloat(sum_profit/5));
+	$("#manual_split_cost").text(manual_cost+parseFloat(sum_profit/5));
+	//拆分后售价
+	$("#al_split_price").text(parseFloat(al_price)+parseFloat(sum_profit/5/al_num));
+	$("#light_split_price").text(parseFloat(light_price)+parseFloat(sum_profit/5/light_num));
+	$("#power_split_price").text(parseFloat(power_price)+parseFloat(sum_profit/5/power_num));
+	$("#line_split_price").text(parseFloat(line_price)+parseFloat(sum_profit/5/line_num));
+	$("#manual_split_price").text(parseFloat(manual_price)+parseFloat(sum_profit/5/manual_num));
+  });
+</script>	
+</body>
+</html>
